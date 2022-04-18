@@ -20,9 +20,28 @@ body {
 }
 
 td.Guesses {
-  border: 2px solid lightgray;
+  border: 2px solid #aaa;
   width: 20%;
   height: 16%;
+  transition: 1s;
+}
+
+td.Correct {
+  border-color: #2a5;
+  background-color: #2a5;
+  color: white;
+}
+
+td.InWord {
+  border-color: #cc5;
+  background-color: #cc5;
+  color: white;
+}
+
+td.Incorrect {
+  border-color: #aaa;
+  background-color: #aaa;
+  color: white;
 }
 
 table.Guesses {
@@ -69,4 +88,22 @@ table.Guesses {
   justify-content: center;
   align-items: stretch;
   gap: 4px;
+}
+
+.PopupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.Popup {
+  pointer-events: all;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 32px;
+  box-shadow: 0px 0px 32px gray;
+  transition: 0.5s;
 }
