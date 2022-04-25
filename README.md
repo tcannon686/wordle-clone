@@ -1,3 +1,13 @@
+# Wordle Clone
+
+Welcome to my wordle clone! To play the wordle clone, [go
+here](https://tcannon686.github.io/wordle-clone/)! Otherwise, you can browse the
+source in this directory.
+
+To run the program locally, please see the CRA info below!
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
