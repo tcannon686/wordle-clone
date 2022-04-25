@@ -120,9 +120,14 @@ function Popup ({ message, open, onClose, autoClose }) {
 
   const openStyle = { opacity: 1, pointerEvents: 'all' }
   const closeStyle = { opacity: 0, pointerEvents: 'none' }
+  const style = open ? openStyle : closeStyle
   return (
-    <div className='PopupContainer' onClick={e => e.stopPropagation()}>
-      <div className='Popup' style={open ? openStyle : closeStyle}>
+    <div className='PopupContainer' style={style}>
+      <div
+        className='Popup'
+        onClick={e => e.stopPropagation()}
+        style={{ ...style, opacity: 1 }}
+      >
         {displayMessage}
       </div>
     </div>
@@ -141,6 +146,7 @@ function hash (str) {
 function App () {
   const [guess, setGuess] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
+  const [seenTutorial, setSeenTutorial] = useState(JSON.parse(localStorage.getItem('seenTutorial') || 'false'))
   const date = new Date()
   const wordIndex = Math.abs(hash(
     `${date.getFullYear()}${date.getMonth()},${date.getDate()}`
@@ -149,6 +155,10 @@ function App () {
   const [guesses, setGuesses] = useState(
     (JSON.parse(localStorage.getItem('guesses')) || {})[word] || []
   )
+
+  useEffect(() => {
+    localStorage.setItem('seenTutorial', JSON.stringify(seenTutorial))
+  }, [seenTutorial])
 
   useEffect(() => {
     localStorage.setItem('guesses', JSON.stringify({ [word]: guesses }))
@@ -200,12 +210,32 @@ function App () {
         autoClose
       />
       <Popup
-        message={'Congrats, you won! Play again tomorrow!'}
+        message='Congrats, you won! Play again tomorrow!'
         open={won}
       />
       <Popup
-        message={'You lost. You suck, try again tomorrow tho'}
+        message='You lost. You suck, try again tomorrow tho'
         open={lost}
+      />
+      <Popup
+        message={
+          <>
+            <h1>Wordle Clone</h1>
+            <p>
+              Welcome to wordle clone, the game where you wordle, I wordle, and we wordle.
+            </p>
+            <p>
+              Try to guess the 5 letter word! For each guess, a green letter
+              indicates that the letter is in the right place. A yellow letter
+              indicates that the letter is in the word but in the wrong place.
+            </p>
+            <p>
+              You will get 6 guesses. A new word is chosen every day! Good luck!
+            </p>
+          </>
+        }
+        open={!seenTutorial}
+        onClose={() => { setSeenTutorial(true) }}
       />
     </div>
   );
